@@ -1,0 +1,38 @@
+{
+	"name": "Debian",
+	"image": "denoland/deno:debian-2.1.9",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"bierner.github-markdown-preview",
+				"denoland.vscode-deno",
+				"EditorConfig.EditorConfig",
+				"esbenp.prettier-vscode"
+			],
+			"settings": {
+				"deno.enable": true,
+				"deno.lint": true,
+				"editor.defaultFormatter": "denoland.vscode-deno",
+				"[javascript]": {
+					"editor.defaultFormatter": "denoland.vscode-deno"
+				},
+				"[typescript]": {
+					"editor.defaultFormatter": "denoland.vscode-deno"
+				}
+			}
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": false,
+			"installOhMyZsh": false,
+			"installOhMyZshConfig": false,
+			"upgradePackages": true,
+			"username": "giordano"
+		},
+		"./codeman99/features/deno-dir": {
+			"username": "giordano"
+		}
+	},
+	"remoteUser": "giordano"
+}

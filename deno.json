@@ -1,0 +1,21 @@
+{
+  "name": "@codeman99/bruno-web-dsl",
+  "version": "0.1.0",
+  "exports": "./bruno-web-dsl.ts",
+  "tasks": {
+    "check": "deno check bruno-web-dsl.ts",
+    "coverage": "deno test --coverage",
+    "dev": "deno test --watch",
+    "doc": "deno doc --html --name='Bruno Web DSL' bruno-web-dsl.ts",
+    "doc:lint": "deno doc --lint bruno-web-dsl.ts"
+  },
+  "fmt": {
+    "useTabs": true,
+    "lineWidth": 119,
+    "indentWidth": 4
+  },
+  "license": "MIT",
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1"
+  }
+}

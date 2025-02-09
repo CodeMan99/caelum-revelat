@@ -1,0 +1,22 @@
+{
+	"id": "deno-dir",
+	"name": "Setup /deno-dir for devcontainers",
+	"version": "1.0.0",
+	"options": {
+		"username": {
+			"type": "string",
+			"description": "Username to add to the `deno` group",
+			"default": "deno"
+		}
+	},
+	"mounts": [
+		{
+			"source": "deno-dir-${devcontainerId}",
+			"target": "/deno-dir",
+			"type": "volume"
+		}
+	],
+	"installsAfter": [
+		"ghcr.io/devcontainers/features/common-utils"
+	]
+}
