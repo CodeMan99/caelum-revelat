@@ -157,6 +157,42 @@ const parameters = {
 Perhaps the `sort` parameter could benefit from a simplier form. Currently
 undecided on what approach to use here, if any.
 
+## Proof of Concept Example
+
+This example is a proof that the `parameters` object can actually become the
+query string of a request.
+
+```typescript
+import * as qs from "npm:qs@6.14.0";
+import { E } from "@codeman99/bruno-web-dsl";
+
+const baseURL = "https://bruno.localhost:8443";
+const programmingLanguages = ["TypeScript", "JavaScript", "PHP", "F#"];
+const parameters = E`favorite_language in ${programmingLanguages}`.asParameters();
+const programmerListURL = new URL("/api/programmers", baseURL);
+
+programmerListURL.search = `?${qs.stringify(parameters)}`;
+
+for (const [key, value] of programmerListURL.searchParams) {
+    console.log(`${key}: ${value}`);
+}
+```
+
+This outputs exactly what we need!
+
+```
+filter_groups[0][or]: 0
+filter_groups[0][filters][0][key]: favorite_language
+filter_groups[0][filters][0][operator]: in
+filter_groups[0][filters][0][value][0]: TypeScript
+filter_groups[0][filters][0][value][1]: JavaScript
+filter_groups[0][filters][0][value][2]: PHP
+filter_groups[0][filters][0][value][3]: F#
+filter_groups[0][filters][0][not]: 0
+```
+
+Of course, feel free to modify this example to convince yourself.
+
 ## Documentation
 
 Full API documentation of this module is available
