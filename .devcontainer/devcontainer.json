@@ -1,13 +1,12 @@
 {
-	"name": "Debian",
+	"name": "Deno - Debian bookworm",
 	"image": "denoland/deno:debian-2.1.9",
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"bierner.github-markdown-preview",
 				"denoland.vscode-deno",
-				"EditorConfig.EditorConfig",
-				"esbenp.prettier-vscode"
+				"EditorConfig.EditorConfig"
 			],
 			"settings": {
 				"deno.enable": true,

@@ -1,13 +1,13 @@
 {
-  "name": "@codeman99/bruno-web-dsl",
+  "name": "@codeman99/caelum-revelat",
   "version": "0.1.0",
-  "exports": "./bruno-web-dsl.ts",
+  "exports": "./caelum-revelat.ts",
   "tasks": {
-    "check": "deno check bruno-web-dsl.ts",
+    "check": "deno check caelum-revelat.ts",
     "coverage": "deno test --coverage",
     "dev": "deno test --watch",
-    "doc": "deno doc --html --name='Bruno Web DSL' bruno-web-dsl.ts",
-    "doc:lint": "deno doc --lint bruno-web-dsl.ts"
+    "doc": "deno doc --html --name='Caelum Revelat' caelum-revelat.ts",
+    "doc:lint": "deno doc --lint caelum-revelat.ts"
   },
   "fmt": {
     "useTabs": true,

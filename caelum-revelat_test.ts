@@ -1,6 +1,6 @@
 import { assertEquals, assertObjectMatch, assertThrows } from "@std/assert";
-import { BinaryFilterExpression, E, FilterGroup, filterParams, G } from "./bruno-web-dsl.ts";
-import type { FilterParameters } from "./bruno-web-dsl.ts";
+import { BinaryFilterExpression, E, FilterGroup, filterParams, G } from "./caelum-revelat.ts";
+import type { FilterParameters } from "./caelum-revelat.ts";
 
 Deno.test(async function BinaryFilterExpressionTests(t) {
 	await t.step(function invalidOperatorTest() {
@@ -97,9 +97,9 @@ Deno.test(async function BinaryFilterExpressionTests(t) {
 
 Deno.test(async function FilterGroupTests(t) {
 	await t.step(function invalidGroupMixedLogicalOperators() {
-		const carCount = `car_count lte ${4}`;
-		const bikeCount = `bike_count gte ${2}`;
-		const bookCount = `book_count lt ${42}`;
+		const carCount = E`car_count lte ${4}`;
+		const bikeCount = E`bike_count gte ${2}`;
+		const bookCount = E`book_count lt ${42}`;
 
 		assertThrows(() => G`${carCount} or ${bikeCount} and ${bookCount}`);
 	});

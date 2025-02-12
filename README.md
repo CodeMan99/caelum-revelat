@@ -1,4 +1,4 @@
-# Bruno Web DSL
+# Caelum Revelat
 
 A minimal DSL to create [Bruno][] filters using [Template Literals][].
 
@@ -87,8 +87,8 @@ import {
     FilterGroup,
     filterParams,
     type FilterParameters,
-} from "@codeman99/bruno-web-dsl";
-// Existing parameters before adopting @codeman99/bruno-web-dsl
+} from "@codeman99/caelum-revelat";
+// Existing parameters before adopting @codeman99/caelum-revelat
 import { myParameters } from "./my-example.ts";
 
 const dynamicExample = function* (
@@ -164,9 +164,9 @@ query string of a request.
 
 ```typescript
 import * as qs from "npm:qs@6.14.0";
-import { E } from "@codeman99/bruno-web-dsl";
+import { E } from "@codeman99/caelum-revelat";
 
-const baseURL = "https://bruno.localhost:8443";
+const baseURL = "https://caelum.localhost:8443";
 const programmingLanguages = ["TypeScript", "JavaScript", "PHP", "F#"];
 const parameters = E`favorite_language in ${programmingLanguages}`.asParameters();
 const programmerListURL = new URL("/api/programmers", baseURL);
@@ -196,7 +196,7 @@ Of course, feel free to modify this example to convince yourself.
 ## Documentation
 
 Full API documentation of this module is available
-at https://jsr.io/@codeman99/bruno-web-dsl/doc.
+at https://jsr.io/@codeman99/caelum-revelat/doc.
 
 ## Development
 
