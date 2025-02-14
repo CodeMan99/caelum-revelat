@@ -121,6 +121,31 @@ export class BinaryFilterExpression {
 	}
 
 	/**
+	 * Cast an un-typed {@linkcode BinaryFilterExpression} as an instance.
+	 *
+	 * Does not throw. Returns `null` if the passed value is invalid.
+	 */
+	static tryFrom(expression: unknown): BinaryFilterExpression | null {
+		if (
+			typeof expression === "object" &&
+			expression &&
+			"key" in expression &&
+			typeof expression.key === "string" &&
+			"operator" in expression &&
+			typeof expression.operator === "string" &&
+			isOperator(expression.operator) &&
+			"value" in expression
+		) {
+			const { key, operator, value } = expression;
+			const not = "not" in expression && !!expression.not;
+
+			return new BinaryFilterExpression({ key, operator, value, not });
+		}
+
+		return null;
+	}
+
+	/**
 	 * Copy constructor.
 	 */
 	constructor(
@@ -227,4 +252,33 @@ export function filterParams(
 	...filter_groups: FilterGroup[]
 ): FilterParameters {
 	return { filter_groups };
+}
+
+/**
+ * Cast an un-typed {@linkcode FilterParameters} object, discarding any
+ * non-applicable values along the way.
+ *
+ * Does not throw. Returns `null` when the passed value is invalid.
+ */
+export function upgrade(params: unknown): FilterParameters | null {
+	if (typeof params === "object" && params && "filter_groups" in params && Array.isArray(params.filter_groups)) {
+		const filter_groups: FilterGroup[] = params.filter_groups
+			.map((group: unknown) => {
+				if (typeof group === "object" && group && "filters" in group && Array.isArray(group.filters)) {
+					const or = "or" in group && !!group.or;
+					const filters: BinaryFilterExpression[] = group.filters
+						.map((expression: unknown) => BinaryFilterExpression.tryFrom(expression))
+						.filter((expression: BinaryFilterExpression | null) => expression !== null);
+
+					return new FilterGroup(or, ...filters);
+				}
+
+				return null;
+			})
+			.filter((g: FilterGroup | null) => g !== null);
+
+		return filterParams(...filter_groups);
+	}
+
+	return null;
 }

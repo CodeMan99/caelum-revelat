@@ -1,5 +1,5 @@
-import { assertEquals, assertObjectMatch, assertThrows } from "@std/assert";
-import { BinaryFilterExpression, E, FilterGroup, filterParams, G } from "./caelum-revelat.ts";
+import { assertEquals, assertNotEquals, assertObjectMatch, assertThrows } from "@std/assert";
+import { BinaryFilterExpression, E, FilterGroup, filterParams, G, upgrade } from "./caelum-revelat.ts";
 import type { FilterParameters } from "./caelum-revelat.ts";
 
 Deno.test(async function BinaryFilterExpressionTests(t) {
@@ -236,5 +236,131 @@ Deno.test(async function GeneratorExampleTest(t) {
 		const parameters = filterParams(...example("Sam Smith", "X", 1992, parametersManual));
 
 		assertEquals(parameters.filter_groups.length, 4);
+	});
+});
+
+Deno.test(async function BinaryFilterExpressionTryFromTest(t) {
+	await t.step(function InvalidObjectTest() {
+		const o = {};
+		const e = BinaryFilterExpression.tryFrom(o);
+
+		assertEquals(e, null);
+	});
+
+	await t.step(function InvalidOperatorTest() {
+		const o = {
+			key: "make",
+			operator: "some",
+			value: "oatmeal",
+		};
+		const e = BinaryFilterExpression.tryFrom(o);
+
+		assertEquals(e, null);
+	});
+
+	await t.step(function ValidWithoutNotPropertyTest() {
+		const o = {
+			key: "username",
+			operator: "eq",
+			value: "codeman99",
+		};
+		const e = BinaryFilterExpression.tryFrom(o);
+
+		assertNotEquals(e, null);
+		assertObjectMatch(e!, { ...o, not: 0 });
+	});
+
+	await t.step(function ValidWithBooleanNotPropertyTest() {
+		const o = {
+			key: "rating",
+			operator: "eq",
+			value: 10,
+			not: true,
+		};
+		const e = BinaryFilterExpression.tryFrom(o);
+
+		assertNotEquals(e, null);
+		assertObjectMatch(e!, { ...o, not: 1 });
+	});
+
+	await t.step(function ValidNotNullExpressionTest() {
+		const o = {
+			key: "deleted_at",
+			operator: "eq",
+			value: null,
+			not: 1,
+		};
+		const e = BinaryFilterExpression.tryFrom(o);
+
+		assertNotEquals(e, null);
+		assertObjectMatch(e!, { ...o });
+	});
+});
+
+Deno.test(async function UpgradeParametersTest(t) {
+	await t.step(function InvalidObjectTest() {
+		const o = {};
+		const parameters = upgrade(o);
+
+		assertEquals(parameters, null);
+	});
+
+	await t.step(function InvalidFilterGroupObjectTest() {
+		const o = {
+			filter_groups: {
+				length: 0,
+			},
+		};
+		const parameters = upgrade(o);
+
+		assertEquals(parameters, null);
+	});
+
+	await t.step(function ValidEmptyParametersTest() {
+		const o = {
+			filter_groups: [],
+		};
+		const parameters = upgrade(o);
+
+		assertNotEquals(parameters, null);
+		assertObjectMatch(parameters!, { ...o });
+	});
+
+	await t.step(function ValidParametersWithDroppedGroupsTest() {
+		const o = {
+			filter_groups: [
+				// invalid group
+				{},
+			],
+		};
+		const parameters = upgrade(o);
+
+		assertNotEquals(parameters, null);
+		assertObjectMatch(parameters!, { filter_groups: [] });
+	});
+
+	await t.step(function ValidTest() {
+		const o = {
+			filter_groups: [
+				{
+					or: 0,
+					filters: [
+						{
+							key: "generation",
+							operator: "in",
+							value: [
+								"Lost",
+								"Silent",
+							],
+							not: 0,
+						}
+					]
+				}
+			],
+		};
+		const parameters = upgrade(o);
+
+		assertNotEquals(parameters, null);
+		assertObjectMatch(parameters!, { ...o });
 	});
 });
