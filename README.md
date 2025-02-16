@@ -2,6 +2,11 @@
 
 A minimal DSL to create [Bruno][] filters using [Template Literals][].
 
+## Explanation of the Name
+
+The name _Caelum Revelat_ is Latin for _Heaven Reveals_. This is a nod to the
+life work of Giordano Bruno - see the [Bruno Introduction][] for more context.
+
 ## Target Audience
 
 This library is designed to be used in web frontends making requests to any
@@ -207,5 +212,6 @@ destroy your container at any time.
 
 [Bruno]: https://github.com/esbenp/bruno#filtering
 [Template Literals]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+[Bruno Introduction]: https://github.com/esbenp/bruno#introduction
 [devcontainer]: https://code.visualstudio.com/docs/devcontainers/containers
 [official docker image for deno]: https://hub.docker.com/r/denoland/deno

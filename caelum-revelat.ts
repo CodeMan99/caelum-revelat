@@ -1,8 +1,29 @@
 /**
  * Minimal DSL for creating Bruno Filters using Template Literals.
  *
+ * In most use cases the output is a _parameters_ object ready for use as a
+ * request's query string. The {@link https://www.npmjs.com/package/qs} package
+ * is recommended.
+ *
+ * @example A single expression to a full _parameters_ object.
+ * ```typescript
+ * const username = "CodeMan99";
+ * const parameters = E`username eq ${username}`.asParameters();
+ * ```
+ *
+ * @example Two groups used to create the _parameters_ object.
+ * ```typescript
+ * const playerClass = "bard";
+ * const isPlayerClass = E`player_class eq ${playerClass}`.asGroup();
+ * const anyStat = G`
+ * 	${E`wisdom   gt ${7}`}
+ * 	or
+ * 	${E`charisma gt ${14} `}
+ * `;
+ * const parameters = filterParams(isPlayerClass, anyStat);
+ * ```
+ *
  * @module
- * @see {@link https://github.com/esbenp/bruno#filtering}
  */
 
 /**
