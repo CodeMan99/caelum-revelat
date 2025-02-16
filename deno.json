@@ -1,6 +1,6 @@
 {
   "name": "@codeman99/caelum-revelat",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "exports": "./caelum-revelat.ts",
   "tasks": {
     "check": "deno check caelum-revelat.ts",
