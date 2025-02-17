@@ -2,8 +2,8 @@
  * Minimal DSL for creating Bruno Filters using Template Literals.
  *
  * In most use cases the output is a _parameters_ object ready for use as a
- * request's query string. The {@link https://www.npmjs.com/package/qs} package
- * is recommended.
+ * request's query string. The {@link https://www.npmjs.com/package/qs|qs}
+ * package is recommended.
  *
  * @example A single expression to a full _parameters_ object.
  * ```typescript
@@ -53,7 +53,7 @@ const EXPRESSION_RE = new RegExp(String.raw`(?<key>\w+?)\s+?(?<not>not_)?(?<oper
 export type Operator = typeof OPERATORS[number];
 
 /**
- * Check if a value is of type {@link Operator}.
+ * Check if a value is of type {@linkcode Operator}.
  */
 export function isOperator(value: string): value is Operator {
 	return OPERATORS.includes(value as Operator);
@@ -65,7 +65,7 @@ export function isOperator(value: string): value is Operator {
 export type BooleanNumber = 1 | 0;
 
 /**
- * An input type that is used internally to create {@link BooleanNumber}
+ * An input type that is used internally to create {@linkcode BooleanNumber}
  */
 export type BooleanLike = BooleanNumber | boolean | string | undefined;
 
@@ -97,7 +97,7 @@ export class BinaryFilterExpression {
 	not: BooleanNumber;
 
 	/**
-	 * A Template Literal to build a {@link BinaryFilterExpression}.
+	 * A Template Literal to build a {@linkcode BinaryFilterExpression}.
 	 */
 	static parse(
 		[expression, ...strings]: TemplateStringsArray,
@@ -135,14 +135,14 @@ export class BinaryFilterExpression {
 	}
 
 	/**
-	 * Wrap this {@link BinaryFilterExpression} into a {@link FilterGroup}.
+	 * Wrap this {@linkcode BinaryFilterExpression} into a {@linkcode FilterGroup}.
 	 */
 	asGroup(): FilterGroup {
 		return new FilterGroup(0, this);
 	}
 
 	/**
-	 * Wrap this {@link BinaryFilterExpression} into a {@link FilterParameters} object.
+	 * Wrap this {@linkcode BinaryFilterExpression} into a {@linkcode FilterParameters} object.
 	 */
 	asParameters(): FilterParameters {
 		return filterParams(this.asGroup());
@@ -150,8 +150,8 @@ export class BinaryFilterExpression {
 }
 
 /**
- * A group of {@link BinaryFilterExpression} objects. Can also be though of as
- * a "logical expression" collection.
+ * A group of {@linkcode BinaryFilterExpression} objects. Can also be though
+ * of as a "logical expression" collection.
  *
  * For example the expression `userIsOwner or userIsAdmin` is a logical
  * expression using the `or` operator.
@@ -164,7 +164,7 @@ export class FilterGroup {
 
 	/**
 	 * A Template Literal to build a FilterGroup. All interpolated values should
-	 * already be parsed as a {@link BinaryFilterExpression}.
+	 * already be parsed as a {@linkcode BinaryFilterExpression}.
 	 */
 	static parse(strings: TemplateStringsArray, ...values: unknown[]): FilterGroup {
 		// This validation does not care about order. Strictly, the strings array
@@ -195,7 +195,7 @@ export class FilterGroup {
 	}
 
 	/**
-	 * Wrap this {@link FilterGroup} into a {@link FilterParameters} object.
+	 * Wrap this {@linkcode FilterGroup} into a {@linkcode FilterParameters} object.
 	 */
 	asParameters(): FilterParameters {
 		return filterParams(this);
@@ -203,7 +203,7 @@ export class FilterGroup {
 }
 
 /**
- * Short alias for {@link BinaryFilterExpression.parse}
+ * Short alias for {@linkcode BinaryFilterExpression.parse}.
  */
 export function E(
 	strings: TemplateStringsArray,
@@ -214,14 +214,14 @@ export function E(
 }
 
 /**
- * Short alias for {@link FilterGroup.parse}
+ * Short alias for {@linkcode FilterGroup.parse}.
  */
 export function G(strings: TemplateStringsArray, ...values: unknown[]): FilterGroup {
 	return FilterGroup.parse(strings, ...values);
 }
 
 /**
- * Create a "params" object suitable for use with {@link https://github.com/ljharb/qs}.
+ * Create a "params" object suitable for use with {@link https://www.npmjs.com/package/qs|qs}.
  */
 export function filterParams(
 	...filter_groups: FilterGroup[]
