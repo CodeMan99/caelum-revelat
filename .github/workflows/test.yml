@@ -1,5 +1,12 @@
 name: Test
+
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -11,5 +18,11 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - name: deno test
+      - name: type check source files
+        run: deno task check
+      - name: lint source files
+        run: deno lint
+      - name: lint documentation
+        run: deno task doc:lint
+      - name: test module
         run: deno test
