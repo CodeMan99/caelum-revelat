@@ -6,7 +6,8 @@
 			"extensions": [
 				"bierner.github-markdown-preview",
 				"denoland.vscode-deno",
-				"EditorConfig.EditorConfig"
+				"EditorConfig.EditorConfig",
+				"GitHub.vscode-github-actions"
 			],
 			"settings": {
 				"deno.enable": true,
