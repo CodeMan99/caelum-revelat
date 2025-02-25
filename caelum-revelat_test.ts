@@ -96,6 +96,16 @@ Deno.test(async function BinaryFilterExpressionTests(t) {
 });
 
 Deno.test(async function FilterGroupTests(t) {
+	await t.step(function invalidGroupWhenEmpty() {
+		assertThrows(() => G``);
+	});
+
+	await t.step(function invalidGroupNonExpressionGiven() {
+		const notExpression: string = `weight gt ${150}`;
+
+		assertThrows(() => G`${notExpression}`)
+	});
+
 	await t.step(function invalidGroupMixedLogicalOperators() {
 		const carCount = E`car_count lte ${4}`;
 		const bikeCount = E`bike_count gte ${2}`;

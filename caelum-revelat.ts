@@ -167,6 +167,10 @@ export class FilterGroup {
 	 * already be parsed as a {@linkcode BinaryFilterExpression}.
 	 */
 	static parse(strings: TemplateStringsArray, ...values: unknown[]): FilterGroup {
+		if (values.length === 0) {
+			throw new Error("A filter group may not be empty");
+		}
+
 		// This validation does not care about order. Strictly, the strings array
 		// should be something like `["", " or ", " or ", ""]` where the empty strings
 		// denote the beginning and end of the logical expression group
@@ -179,6 +183,10 @@ export class FilterGroup {
 		//              should be either `or` OR `and`
 		if (logicalExpressions.size === 0 || logicalExpressions.size === 1) {
 			const filters = values.filter((v) => v instanceof BinaryFilterExpression);
+
+			if (values.length > filters.length) {
+				throw new Error("All values must be a BinaryFilterExpression");
+			}
 
 			return new this(logicalExpressions.has("or"), ...filters);
 		} else {
