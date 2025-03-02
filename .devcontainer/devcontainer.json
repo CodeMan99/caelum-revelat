@@ -1,6 +1,6 @@
 {
 	"name": "Deno - Debian bookworm",
-	"image": "denoland/deno:debian-2.2.1",
+	"image": "denoland/deno:debian-2.2.2",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -30,7 +30,7 @@
 			"upgradePackages": true,
 			"username": "giordano"
 		},
-		"./codeman99/features/deno-dir": {
+		"ghcr.io/codeman99/features/deno-cache:0": {
 			"username": "giordano"
 		}
 	},
