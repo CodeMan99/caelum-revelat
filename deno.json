@@ -1,7 +1,7 @@
 {
   "name": "@codeman99/caelum-revelat",
   "version": "0.2.0",
-  "exports": "./caelum-revelat.ts",
+  "exports": "./lib/caelum-revelat.ts",
   "tasks": {
     "check": "deno check caelum-revelat.ts",
     "coverage": "deno test --coverage",
