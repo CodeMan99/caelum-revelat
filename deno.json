@@ -3,11 +3,11 @@
   "version": "0.2.0",
   "exports": "./lib/caelum-revelat.ts",
   "tasks": {
-    "check": "deno check caelum-revelat.ts",
+    "check": "deno check lib/*.ts",
     "coverage": "deno test --coverage",
     "dev": "deno test --watch",
-    "doc": "deno doc --html --name='Caelum Revelat' caelum-revelat.ts",
-    "doc:lint": "deno doc --lint caelum-revelat.ts"
+    "doc": "deno doc --html --name='Caelum Revelat' lib/*.ts",
+    "doc:lint": "deno doc --lint lib/*.ts"
   },
   "fmt": {
     "useTabs": true,
