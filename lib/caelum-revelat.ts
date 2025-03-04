@@ -18,6 +18,10 @@ export type FilterParameters = {
 	filter_groups: FilterGroup[];
 };
 
+export function filterParams(...filter_groups: FilterGroup[]): FilterParameters {
+	return { filter_groups };
+}
+
 export function asGroup(binaryFilterExpression: BinaryFilterExpression): FilterGroup {
 	return {
 		or: 0,
@@ -28,15 +32,5 @@ export function asGroup(binaryFilterExpression: BinaryFilterExpression): FilterG
 }
 
 export function asParameters(binaryFilterExpression: BinaryFilterExpression): FilterParameters {
-	return {
-		filter_groups: [
-			asGroup(binaryFilterExpression),
-		],
-	};
-}
-
-export function filterParams(
-	...filter_groups: FilterGroup[]
-): FilterParameters {
-	return { filter_groups };
+	return filterParams(asGroup(binaryFilterExpression));
 }
