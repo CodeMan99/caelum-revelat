@@ -16,7 +16,7 @@ single expression.
 
 ```javascript
 const username = "CodeMan99";
-const parameters = asParameters(E`username eq ${username}`);
+const parameters = filterParams(E`username eq ${username}`);
 ```
 
 Instead of this monster, clocking in at 15 lines. :smiling_imp:
@@ -92,11 +92,10 @@ approach I mentioned. Just use a generator!
 
 ```typescript
 import {
-    asGroup,
     E,
     G,
     filterParams,
-    type FilterGroup,
+    type Expression,
     type FilterParameters,
 } from "@codeman99/caelum-revelat";
 // Existing parameters before adopting @codeman99/caelum-revelat
@@ -107,7 +106,7 @@ const dynamicExample = function* (
     age: number,
     sports?: string[],
     existingParameters?: FilterParameters,
-): Generator<FilterGroup> {
+): Generator<Expression> {
     yield G`
         ${ E`username sw ${username}` }
         and
@@ -115,7 +114,7 @@ const dynamicExample = function* (
     `;
 
     if (Array.isArray(sports) && sports.length > 0) {
-        yield asGroup(E`favorite_sport in ${sports}`);
+        yield E`favorite_sport in ${sports}`;
     }
 
     if (existingParameters) {
@@ -146,11 +145,11 @@ to be honest, plain objects are fine for those other features. Just spread the
 result of building the filtering object.
 
 ```javascript
-import { asParameters, E } from "@codeman99/caelum-revelat";
+import { E, filterParams } from "@codeman99/caelum-revelat";
 
 const userRole = "employee";
 const parameters = {
-    ...asParameters(E`roles ct ${userRole}`),
+    ...filterParams(E`roles ct ${userRole}`),
     page: 1,
     limit: 25,
     includes: ["office"],
@@ -177,11 +176,11 @@ query string of a request.
 
 ```typescript
 import * as qs from "npm:qs@6.14.0";
-import { asParameters, E } from "@codeman99/caelum-revelat";
+import { E, filterParams } from "@codeman99/caelum-revelat";
 
 const baseURL = "https://caelum.localhost:8443";
 const programmingLanguages = ["TypeScript", "JavaScript", "PHP", "F#"];
-const parameters = asParameters(E`favorite_language in ${programmingLanguages}`);
+const parameters = filterParams(E`favorite_language in ${programmingLanguages}`);
 const programmerListURL = new URL("/api/programmers", baseURL);
 
 programmerListURL.search = `?${qs.stringify(parameters)}`;

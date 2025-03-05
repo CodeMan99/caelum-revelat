@@ -8,17 +8,17 @@
  * @example A single expression to a full _parameters_ object.
  * ```typescript
  * const username = "CodeMan99";
- * const parameters = asParameters(E`username eq ${username}`);
+ * const parameters = filterParams(E`username eq ${username}`);
  * ```
  *
- * @example Two groups used to create the _parameters_ object.
+ * @example Two expressions used to create the _parameters_ object.
  * ```typescript
  * const playerClass = "bard";
- * const isPlayerClass = asGroup(E`player_class eq ${playerClass}`);
+ * const isPlayerClass = E`player_class eq ${playerClass}`;
  * const anyStat = G`
  * 	${E`wisdom   gt ${7}`}
  * 	or
- * 	${E`charisma gt ${14} `}
+ * 	${E`charisma gt ${14}`}
  * `;
  * const parameters = filterParams(isPlayerClass, anyStat);
  * ```
@@ -26,7 +26,7 @@
  * @module
  */
 
-import type { BinaryFilterExpression } from "./binary-filter-expression.ts";
+import { isBinaryFilterExpression, type BinaryFilterExpression } from "./binary-filter-expression.ts";
 import type { FilterGroup } from "./logical-group-expression.ts";
 
 export type { BooleanNumber } from "./types.ts";
@@ -51,27 +51,24 @@ export type FilterParameters = {
 };
 
 /**
+ * Union of a single filter expression or a logical filter group expression.
+ */
+export type Expression = BinaryFilterExpression | FilterGroup;
+
+/**
  * Create a "params" object suitable for use with {@link https://www.npmjs.com/package/qs|qs}.
+ *
+ * Will map individual {@linkcode BinaryFilterExpression} objects to a
+ * {@linkcode FilterGroup} before creating the parameters object.
  */
-export function filterParams(...filter_groups: FilterGroup[]): FilterParameters {
+export function filterParams(...groups: Array<Expression>): FilterParameters {
+	const filter_groups = groups.map<FilterGroup>(value => {
+		if (isBinaryFilterExpression(value)) {
+			return { or: 0, filters: [value] };
+		} else {
+			return value;
+		}
+	});
+
 	return { filter_groups };
-}
-
-/**
- * Wrap the given {@linkcode BinaryFilterExpression} into a {@linkcode FilterGroup} object.
- */
-export function asGroup(binaryFilterExpression: BinaryFilterExpression): FilterGroup {
-	return {
-		or: 0,
-		filters: [
-			binaryFilterExpression,
-		],
-	};
-}
-
-/**
- * Wrap the given {@linkcode BinaryFilterExpression} into a {@linkcode FilterParameters} object.
- */
-export function asParameters(binaryFilterExpression: BinaryFilterExpression): FilterParameters {
-	return filterParams(asGroup(binaryFilterExpression));
 }

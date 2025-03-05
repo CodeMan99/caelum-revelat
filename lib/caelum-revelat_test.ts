@@ -1,12 +1,12 @@
 import { assertEquals, assertObjectMatch } from "@std/assert";
-import type { FilterGroup, FilterParameters } from "./caelum-revelat.ts";
-import { asGroup, asParameters, E, filterParams, G } from "./caelum-revelat.ts";
+import type { Expression, FilterParameters } from "./caelum-revelat.ts";
+import { E, filterParams, G } from "./caelum-revelat.ts";
 
 Deno.test(async function BinaryFilterExpressionTests(t) {
 	await t.step(function createAsGroupTest() {
-		const group = asGroup(E`color sw ${"blue"}`);
+		const parameters = filterParams(E`color sw ${"blue"}`);
 
-		assertObjectMatch(group, {
+		assertObjectMatch(parameters.filter_groups[0], {
 			or: 0,
 			filters: [
 				{
@@ -20,7 +20,7 @@ Deno.test(async function BinaryFilterExpressionTests(t) {
 	});
 
 	await t.step(function createAsParametersTest() {
-		const parameters = asParameters(E`food ct ${"pizza"}`);
+		const parameters = filterParams(E`food ct ${"pizza"}`);
 
 		assertObjectMatch(parameters, {
 			filter_groups: [
@@ -46,7 +46,7 @@ Deno.test(async function GeneratorExampleTest(t) {
 		gender: "M" | "F" | "X",
 		birthYear?: number,
 		existingParams?: FilterParameters,
-	): Generator<FilterGroup> {
+	): Generator<Expression> {
 		yield G`
 			${E`name eq ${name}`}
 			and
@@ -54,7 +54,7 @@ Deno.test(async function GeneratorExampleTest(t) {
 		`;
 
 		if (Number.isInteger(birthYear)) {
-			yield asGroup(E`birth_year eq ${birthYear}`);
+			yield E`birth_year eq ${birthYear}`;
 		}
 
 		if (existingParams) {
