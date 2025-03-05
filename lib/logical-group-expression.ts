@@ -1,11 +1,24 @@
 import { type BinaryFilterExpression, isBinaryFilterExpression } from "./binary-filter-expression.ts";
 import type { BooleanNumber } from "./types.ts";
 
+/**
+ * A group of {@linkcode BinaryFilterExpression} objects. Can also be though
+ * of as a "logical expression" collection.
+ *
+ * For example the expression `userIsOwner or userIsAdmin` is a logical
+ * expression using the `or` operator.
+ */
 export type FilterGroup = {
+	/** Should this group be combined by logical-or (value `1`) or logical-and (value `0`). */
 	or: BooleanNumber;
+	/** The expressions contained within this logical group. */
 	filters: BinaryFilterExpression[];
 };
 
+/**
+ * A Template Literal to build a FilterGroup. All interpolated values should
+ * already be parsed as a {@linkcode BinaryFilterExpression}.
+ */
 export function parse(strings: TemplateStringsArray, ...values: unknown[]): FilterGroup {
 	if (values.length === 0) {
 		throw new Error("A filter group may not be empty");
