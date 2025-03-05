@@ -7,7 +7,8 @@
     "coverage": "deno test --coverage",
     "dev": "deno test --watch",
     "doc": "deno doc --html --name='Caelum Revelat' lib/*.ts",
-    "doc:lint": "deno doc --lint lib/*.ts"
+    "doc:lint": "deno doc --lint lib/*.ts",
+    "fmt:check": "deno fmt --check lib/*.ts"
   },
   "fmt": {
     "useTabs": true,

@@ -22,6 +22,8 @@ jobs:
         run: deno task check
       - name: Lint source files
         run: deno lint
+      - name: Format check source files
+        run: deno task fmt:check
       - name: Lint documentation
         run: deno task doc:lint
       - name: Test module
