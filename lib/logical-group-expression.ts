@@ -2,7 +2,7 @@ import { type BinaryFilterExpression, isBinaryFilterExpression } from "./binary-
 import type { BooleanNumber } from "./types.ts";
 
 /**
- * A group of {@linkcode BinaryFilterExpression} objects. Can also be though
+ * A group of {@linkcode BinaryFilterExpression} objects. Can also be thought
  * of as a "logical expression" collection.
  *
  * For example the expression `userIsOwner or userIsAdmin` is a logical
