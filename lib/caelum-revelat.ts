@@ -61,7 +61,7 @@ export type Expression = BinaryFilterExpression | FilterGroup;
  * Will map individual {@linkcode BinaryFilterExpression} objects to a
  * {@linkcode FilterGroup} before creating the parameters object.
  */
-export function filterParams(...groups: Array<Expression>): FilterParameters {
+export function filterParams(...groups: Expression[]): FilterParameters {
 	const filter_groups = groups.map<FilterGroup>((value) => {
 		if (isBinaryFilterExpression(value)) {
 			return { or: 0, filters: [value] };
