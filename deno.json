@@ -6,7 +6,7 @@
     "check": "deno check lib/*.ts",
     "coverage": "deno test --coverage",
     "dev": "deno test --watch",
-    "doc": "deno doc --html --name='Caelum Revelat' lib/*.ts",
+    "doc": "deno doc --html --name='Caelum Revelat' lib/caelum-revelat.ts",
     "doc:lint": "deno doc --lint lib/*.ts",
     "fmt:check": "deno fmt --check lib/*.ts"
   },
