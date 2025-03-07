@@ -46,7 +46,7 @@ What about a native builder pattern? That too as some flaws - mutablity and
 building from the top-down. Let's do two expressions in a single group.
 
 ```javascript
-import { filterParams } from "@codeman99/caelum-revelat";
+import { E, G, filterParams } from "@codeman99/caelum-revelat";
 
 const ageRange = [21, 45];
 const sports = ["Hockey", "Cricket", "Rugby"];
