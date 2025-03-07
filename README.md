@@ -114,6 +114,7 @@ const dynamicExample = function* (
     `;
 
     if (Array.isArray(sports) && sports.length > 0) {
+        // Will be transformed into a group by the filterParams function.
         yield E`favorite_sport in ${sports}`;
     }
 
