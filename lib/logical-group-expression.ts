@@ -47,3 +47,13 @@ export function parse(strings: TemplateStringsArray, ...values: unknown[]): Filt
 		throw new Error("Cannot parse logical expressions (filter group)");
 	}
 }
+
+export function isFilterGroup(value: unknown): value is FilterGroup {
+	return typeof value === "object" &&
+		value !== null &&
+		"or" in value &&
+		typeof value.or === "number" &&
+		(value.or === 1 || value.or === 0) &&
+		"filters" in value &&
+		Array.isArray(value.filters);
+}

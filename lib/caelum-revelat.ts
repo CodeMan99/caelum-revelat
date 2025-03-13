@@ -26,8 +26,8 @@
  * @module
  */
 
-import { type BinaryFilterExpression, isBinaryFilterExpression } from "./binary-filter-expression.ts";
-import type { FilterGroup } from "./logical-group-expression.ts";
+import type { BinaryFilterExpression } from "./binary-filter-expression.ts";
+import { type FilterGroup, isFilterGroup } from "./logical-group-expression.ts";
 
 export type { BooleanNumber } from "./types.ts";
 
@@ -40,7 +40,7 @@ export {
 	parse as E,
 } from "./binary-filter-expression.ts";
 
-export { type FilterGroup, parse as G } from "./logical-group-expression.ts";
+export { type FilterGroup, isFilterGroup, parse as G } from "./logical-group-expression.ts";
 
 /**
  * Object suitable to build a query string.
@@ -63,10 +63,10 @@ export type Expression = BinaryFilterExpression | FilterGroup;
  */
 export function filterParams(...groups: Expression[]): FilterParameters {
 	const filter_groups = groups.map<FilterGroup>((value) => {
-		if (isBinaryFilterExpression(value)) {
-			return { or: 0, filters: [value] };
-		} else {
+		if (isFilterGroup(value)) {
 			return value;
+		} else {
+			return { or: 0, filters: [value] };
 		}
 	});
 
