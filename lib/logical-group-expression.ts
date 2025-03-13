@@ -47,3 +47,19 @@ export function parse(strings: TemplateStringsArray, ...values: unknown[]): Filt
 		throw new Error("Cannot parse logical expressions (filter group)");
 	}
 }
+
+/**
+ * Type narrowing check for {@linkcode FilterGroup} instances.
+ *
+ * @param value The value to test
+ * @returns True when value satisfies the structure of a {@linkcode FilterGroup}.
+ */
+export function isFilterGroup(value: unknown): value is FilterGroup {
+	return typeof value === "object" &&
+		value !== null &&
+		"or" in value &&
+		typeof value.or === "number" &&
+		(value.or === 1 || value.or === 0) &&
+		"filters" in value &&
+		Array.isArray(value.filters);
+}

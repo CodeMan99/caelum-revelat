@@ -96,11 +96,11 @@ export function isBinaryFilterExpression(value: unknown, strict = true): value i
 		"key" in value &&
 		"operator" in value &&
 		"value" in value &&
-		typeof value["key"] === "string" &&
-		typeof value["operator"] === "string" &&
-		isOperator(value["operator"]) &&
+		typeof value.key === "string" &&
+		typeof value.operator === "string" &&
+		isOperator(value.operator) &&
 		(!strict || (
 			"not" in value &&
-			(value["not"] === 1 || value["not"] === 0)
+			(value.not === 1 || value.not === 0)
 		));
 }
