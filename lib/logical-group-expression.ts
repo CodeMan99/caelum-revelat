@@ -48,6 +48,12 @@ export function parse(strings: TemplateStringsArray, ...values: unknown[]): Filt
 	}
 }
 
+/**
+ * Type narrowing check for {@linkcode FilterGroup} instances.
+ *
+ * @param value The value to test
+ * @returns True when value satisfies the structure of a {@linkcode FilterGroup}.
+ */
 export function isFilterGroup(value: unknown): value is FilterGroup {
 	return typeof value === "object" &&
 		value !== null &&
