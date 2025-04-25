@@ -19,7 +19,7 @@ export const OPERATORS = [
 /**
  * Parse and "tokenize" an expression.
  */
-const EXPRESSION_RE = new RegExp(String.raw`(?<key>\w+?)\s+?(?<not>not_)?(?<operator>${OPERATORS.join("|")})`);
+const EXPRESSION_RE = new RegExp(String.raw`(?<key>\w+?)\s+?\b(?<not>not_)?(?<operator>${OPERATORS.join("|")})\b`);
 
 /**
  * Union of operators by syntax name.
