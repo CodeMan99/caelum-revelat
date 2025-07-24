@@ -57,19 +57,19 @@ Deno.test(function createInArrayTest() {
 });
 
 Deno.test(function testOperatorMatch_sw() {
-	const expression = E`x sw ${1}`;
+	const expression = E`x sw ${"state"}`;
 
 	assertEquals(expression.operator, "sw");
 });
 
 Deno.test(function testOperatorMatch_ew() {
-	const expression = E`x ew ${1}`;
+	const expression = E`x ew ${"word"}`;
 
 	assertEquals(expression.operator, "ew");
 });
 
 Deno.test(function testOperatorMatch_ct() {
-	const expression = E`x ct ${1}`;
+	const expression = E`x ct ${"brick"}`;
 
 	assertEquals(expression.operator, "ct");
 });
@@ -105,13 +105,13 @@ Deno.test(function testOperatorMatch_lte() {
 });
 
 Deno.test(function testOperatorMatch_in() {
-	const expression = E`x in ${1}`;
+	const expression = E`x in ${[1]}`;
 
 	assertEquals(expression.operator, "in");
 });
 
 Deno.test(function testOperatorMatch_bt() {
-	const expression = E`x bt ${1}`;
+	const expression = E`x bt ${[1, 5]}`;
 
 	assertEquals(expression.operator, "bt");
 });
