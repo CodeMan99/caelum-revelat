@@ -57,7 +57,7 @@ export function isOperator(value: string): value is Operator {
 /**
  * Verify the combination of operator & value are compatible.
  */
-export function acceptableValue(operator: Operator, value: unknown): boolean {
+function acceptableValue(operator: Operator, value: unknown): boolean {
 	const type = typeof value;
 
 	switch (operator) {
