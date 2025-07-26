@@ -55,6 +55,46 @@ export function isOperator(value: string): value is Operator {
 }
 
 /**
+ * Verify the combination of operator & value are compatible.
+ */
+function acceptableValue(operator: Operator, value: unknown): boolean {
+	const type = typeof value;
+
+	switch (operator) {
+		case "sw":
+		case "ew":
+		case "ct":
+			if (type === "string") {
+				return true;
+			} else {
+				throw new Error(`The "${operator}" operator requires a string value`);
+			}
+		case "eq":
+		case "gt":
+		case "gte":
+		case "lt":
+		case "lte":
+			if (type === "string" || type === "number" || type === "boolean" || value === null) {
+				return true;
+			} else {
+				throw new Error(`The "${operator}" operator was given a complex value`);
+			}
+		case "in":
+			if (Array.isArray(value) && value.length > 0) {
+				return true;
+			} else {
+				throw new Error(`The "in" operator requires an array value of non-zero length`);
+			}
+		case "bt":
+			if (typeof value === "object" && value !== null && "0" in value && "1" in value) {
+				return true;
+			} else {
+				throw new Error(`The "bt" operator requires an array-like value containing exactly two constants`);
+			}
+	}
+}
+
+/**
  * A Template Literal to build a {@linkcode BinaryFilterExpression}.
  */
 export function parse(
@@ -66,7 +106,7 @@ export function parse(
 		const { key, not, operator }: Partial<RegExpExecArray["groups"]> = EXPRESSION_RE.exec(expression)?.groups ??
 			{};
 
-		if (key && isOperator(operator)) {
+		if (key && isOperator(operator) && acceptableValue(operator, value)) {
 			return {
 				key,
 				operator,
