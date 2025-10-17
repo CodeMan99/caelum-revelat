@@ -1,6 +1,6 @@
 {
 	"name": "Deno - Debian bookworm",
-	"image": "denoland/deno:debian-2.4.2",
+	"image": "denoland/deno:debian-2.5.4",
 	"customizations": {
 		"vscode": {
 			"extensions": [
