@@ -6,14 +6,18 @@ Deno.test(async function BinaryFilterExpressionTests(t) {
 	await t.step(function createAsGroupTest() {
 		const parameters = filterParams(E`color sw ${"blue"}`);
 
-		assertObjectMatch(parameters.filter_groups[0], {
-			or: 0,
-			filters: [
+		assertObjectMatch(parameters, {
+			filter_groups: [
 				{
-					key: "color",
-					operator: "sw",
-					value: "blue",
-					not: 0,
+					or: 0,
+					filters: [
+						{
+							key: "color",
+							operator: "sw",
+							value: "blue",
+							not: 0,
+						},
+					],
 				},
 			],
 		});
@@ -57,7 +61,7 @@ Deno.test(async function GeneratorExampleTest(t) {
 			yield E`birth_year eq ${birthYear}`;
 		}
 
-		if (existingParams) {
+		if (existingParams && existingParams.filter_groups) {
 			// Trivial to combine parameters.
 			yield* existingParams.filter_groups;
 		}
@@ -66,13 +70,13 @@ Deno.test(async function GeneratorExampleTest(t) {
 	await t.step(function exampleCall1Test() {
 		const parameters = filterParams(...example("Patrick", "M"));
 
-		assertEquals(parameters.filter_groups.length, 1);
+		assertEquals(parameters.filter_groups?.length, 1);
 	});
 
 	await t.step(function exampleCall2Test() {
 		const parameters = filterParams(...example("Patricia", "F", 1968));
 
-		assertEquals(parameters.filter_groups.length, 2);
+		assertEquals(parameters.filter_groups?.length, 2);
 	});
 
 	await t.step(function exampleCall3Test() {
@@ -104,6 +108,12 @@ Deno.test(async function GeneratorExampleTest(t) {
 		};
 		const parameters = filterParams(...example("Sam Smith", "X", 1992, parametersManual));
 
-		assertEquals(parameters.filter_groups.length, 4);
+		assertEquals(parameters.filter_groups?.length, 4);
 	});
+});
+
+Deno.test(function ZeroArgumentsTest() {
+	const parameters = filterParams();
+
+	assertEquals(parameters, {});
 });

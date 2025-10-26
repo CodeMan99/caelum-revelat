@@ -47,7 +47,7 @@ export { type FilterGroup, isFilterGroup, parse as G } from "./logical-group-exp
  */
 export type FilterParameters = {
 	/** One or more filter groups. */
-	filter_groups: FilterGroup[];
+	filter_groups?: FilterGroup[];
 };
 
 /**
@@ -70,5 +70,5 @@ export function filterParams(...groups: Expression[]): FilterParameters {
 		}
 	});
 
-	return { filter_groups };
+	return filter_groups.length > 0 ? { filter_groups } : {};
 }
