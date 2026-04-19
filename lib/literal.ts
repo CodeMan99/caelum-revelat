@@ -64,6 +64,11 @@ export function parse(strings: TemplateStringsArray, ...values: unknown[]): Lite
 	return literal(value);
 }
 
+/**
+ * Bake literal values into the strings array.
+ *
+ * Internal "middleware" for the expression template string literals.
+ */
 export function bake(strings: TemplateStringsArray, ...values: unknown[]): [string[], unknown[]] {
 	const baked: string[] = [];
 	const outValues: unknown[] = [];
