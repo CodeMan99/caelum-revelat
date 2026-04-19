@@ -1,5 +1,6 @@
 import { assertEquals, assertObjectMatch, assertThrows } from "@std/assert";
 import { parse as E } from "./binary-filter-expression.ts";
+import { literal } from "./literal.ts";
 
 Deno.test(function invalidOperatorTest() {
 	assertThrows(() => E`witnessed yt ${"yes"}`);
@@ -163,4 +164,17 @@ Deno.test(function testInvalidValue_bt() {
 		() => E`x bt ${arrayLike}`,
 		`The "bt" operator requires an array-like value containing exactly two constants`,
 	);
+});
+
+Deno.test(function testExpressionWithLiteralOperator() {
+	const eq = literal('eq');
+	const value = 42;
+	const expression = E`meaning ${eq} ${value}`;
+
+	assertObjectMatch(expression, {
+		key: "meaning",
+		operator: "eq",
+		value: 42,
+		not: 0,
+	});
 });
