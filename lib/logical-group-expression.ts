@@ -1,4 +1,5 @@
 import { type BinaryFilterExpression, isBinaryFilterExpression } from "./binary-filter-expression.ts";
+import { bake as bakeLiterals } from "./literal.ts";
 import type { BooleanNumber } from "./types.ts";
 
 /**
@@ -19,7 +20,9 @@ export type FilterGroup = {
  * A Template Literal to build a FilterGroup. All interpolated values should
  * already be parsed as a {@linkcode BinaryFilterExpression}.
  */
-export function parse(strings: TemplateStringsArray, ...values: unknown[]): FilterGroup {
+export function parse(originalStrings: TemplateStringsArray, ...originalValues: unknown[]): FilterGroup {
+	const [strings, values] = bakeLiterals(originalStrings, ...originalValues);
+
 	if (values.length === 0) {
 		throw new Error("A filter group may not be empty");
 	}

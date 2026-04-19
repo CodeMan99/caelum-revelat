@@ -1,3 +1,4 @@
+import { bake as bakeLiterals } from "./literal.ts";
 import type { BooleanNumber } from "./types.ts";
 
 /**
@@ -98,10 +99,11 @@ function acceptableValue(operator: Operator, value: unknown): boolean {
  * A Template Literal to build a {@linkcode BinaryFilterExpression}.
  */
 export function parse(
-	[expression, ...strings]: TemplateStringsArray,
-	value: unknown,
-	...values: unknown[]
+	originalStrings: TemplateStringsArray,
+	...originalValues: unknown[]
 ): BinaryFilterExpression {
+	const [[expression, ...strings], [value, ...values]] = bakeLiterals(originalStrings, ...originalValues);
+
 	if (expression.length > 2 && strings.length === 1 && values.length === 0) {
 		const { key, not, operator }: Partial<RegExpExecArray["groups"]> = EXPRESSION_RE.exec(expression)?.groups ??
 			{};

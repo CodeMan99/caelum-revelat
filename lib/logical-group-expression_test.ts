@@ -1,6 +1,7 @@
 import { assertObjectMatch, assertThrows } from "@std/assert";
 import { parse as E } from "./binary-filter-expression.ts";
 import { parse as G } from "./logical-group-expression.ts";
+import { parse as L } from "./literal.ts";
 
 Deno.test(function invalidGroupWhenEmpty() {
 	assertThrows(() => G``);
@@ -62,6 +63,31 @@ Deno.test(function createOrTest() {
 				key: "month_age",
 				operator: "bt",
 				value: [252, 315],
+				not: 0,
+			},
+		],
+	});
+});
+
+Deno.test(function createWithLiteralsTest() {
+	const operator = L`ct`;
+	const grouping = L`or`;
+	const search = "jef";
+	const group = G`${E`first_name ${operator} ${search}`} ${grouping} ${E`last_name ${operator} ${search}`}`;
+
+	assertObjectMatch(group, {
+		or: 1,
+		filters: [
+			{
+				key: "first_name",
+				operator: "ct",
+				value: "jef",
+				not: 0,
+			},
+			{
+				key: "last_name",
+				operator: "ct",
+				value: "jef",
 				not: 0,
 			},
 		],
