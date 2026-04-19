@@ -72,8 +72,8 @@ Deno.test(function createOrTest() {
 Deno.test(function createWithLiteralsTest() {
 	const operator = L`ct`;
 	const grouping = L`or`;
-	const search = 'jef'
-	const group = G`${ E`first_name ${operator} ${search}` } ${grouping} ${ E`last_name ${operator} ${search}` }`;
+	const search = "jef";
+	const group = G`${E`first_name ${operator} ${search}`} ${grouping} ${E`last_name ${operator} ${search}`}`;
 
 	assertObjectMatch(group, {
 		or: 1,

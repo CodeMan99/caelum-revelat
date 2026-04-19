@@ -167,7 +167,7 @@ Deno.test(function testInvalidValue_bt() {
 });
 
 Deno.test(function testExpressionWithLiteralOperator() {
-	const eq = literal('eq');
+	const eq = literal("eq");
 	const value = 42;
 	const expression = E`meaning ${eq} ${value}`;
 
