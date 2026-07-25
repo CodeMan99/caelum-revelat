@@ -92,3 +92,53 @@ export function bake(strings: TemplateStringsArray, ...values: unknown[]): [stri
 
 	return [baked, outValues];
 }
+
+/**
+ * Literal operator: Starts With
+ */
+export const sw: Literal = literal("sw");
+
+/**
+ * Literal operator: Ends With
+ */
+export const ew: Literal = literal("ew");
+
+/**
+ * Literal operator: Contains
+ */
+export const ct: Literal = literal("ct");
+
+/**
+ * Literal operator: Equals
+ */
+export const eq: Literal = literal("eq");
+
+/**
+ * Literal operator: Greater Than
+ */
+export const gt: Literal = literal("gt");
+
+/**
+ * Literal operator: Greater Than or Equal
+ */
+export const gte: Literal = literal("gte");
+
+/**
+ * Literal operator: Less Than
+ */
+export const lt: Literal = literal("lt");
+
+/**
+ * Literal operator: Less Than or Equal
+ */
+export const lte: Literal = literal("lte");
+
+/**
+ * Literal operator: Member in Values
+ */
+export const in_: Literal = literal("in");
+
+/**
+ * Literal operator: Between
+ */
+export const bt: Literal = literal("bt");

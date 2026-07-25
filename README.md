@@ -206,6 +206,20 @@ filter_groups[0][filters][0][not]: 0
 
 Of course, feel free to modify this example to convince yourself.
 
+### Literals
+
+You can wrap any string in a literal, or use one of the pre-defined
+operators.
+
+```typescript
+import { E, eq, filterParams, L } from "@codeman99/caelum-revelat";
+
+const column = L`username`;
+const value = "codeman99";
+// This is the same as E`username eq ${value}`.
+const parameters = filterParams(E`${column} ${eq} ${value}`);
+```
+
 ## Documentation
 
 Full API documentation of this module is available
