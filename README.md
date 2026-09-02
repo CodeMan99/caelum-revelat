@@ -170,6 +170,20 @@ const parameters = {
 Perhaps the `sort` parameter could benefit from a simplier form. Currently
 undecided on what approach to use here, if any.
 
+### Literals
+
+You can wrap any string in a literal, or use one of the pre-defined
+operators.
+
+```typescript
+import { E, eq, filterParams, L } from "@codeman99/caelum-revelat";
+
+const column = L`username`;
+const value = "codeman99";
+// This is the same as E`username eq ${value}`.
+const parameters = filterParams(E`${column} ${eq} ${value}`);
+```
+
 ## Proof of Concept Example
 
 This example is a proof that the `parameters` object can actually become the
@@ -205,20 +219,6 @@ filter_groups[0][filters][0][not]: 0
 ```
 
 Of course, feel free to modify this example to convince yourself.
-
-### Literals
-
-You can wrap any string in a literal, or use one of the pre-defined
-operators.
-
-```typescript
-import { E, eq, filterParams, L } from "@codeman99/caelum-revelat";
-
-const column = L`username`;
-const value = "codeman99";
-// This is the same as E`username eq ${value}`.
-const parameters = filterParams(E`${column} ${eq} ${value}`);
-```
 
 ## Documentation
 
