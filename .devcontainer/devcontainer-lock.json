@@ -1,0 +1,14 @@
+{
+  "features": {
+    "ghcr.io/codeman99/features/deno-cache:0": {
+      "version": "0.1.1",
+      "resolved": "ghcr.io/codeman99/features/deno-cache@sha256:ff940aa5a66bd43b911940fd66ff1e1c44a3452f2e3709b741e4e409d8caf3bb",
+      "integrity": "sha256:ff940aa5a66bd43b911940fd66ff1e1c44a3452f2e3709b741e4e409d8caf3bb"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "version": "2.5.9",
+      "resolved": "ghcr.io/devcontainers/features/common-utils@sha256:cb0c4d3c276f157eed17935747e364178d75fee17f55c4e129966f64633deb3a",
+      "integrity": "sha256:cb0c4d3c276f157eed17935747e364178d75fee17f55c4e129966f64633deb3a"
+    }
+  }
+}
