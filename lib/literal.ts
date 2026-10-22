@@ -114,6 +114,11 @@ export const ct: Literal = literal("ct");
 export const eq: Literal = literal("eq");
 
 /**
+ * Literal operator: Not Equals
+ */
+export const not_eq: Literal = literal("not_eq");
+
+/**
  * Literal operator: Greater Than
  */
 export const gt: Literal = literal("gt");
@@ -137,6 +142,11 @@ export const lte: Literal = literal("lte");
  * Literal operator: Member in Values
  */
 export const in_: Literal = literal("in");
+
+/**
+ * Literal operator: Member not in values
+ */
+export const not_in: Literal = literal("not_in");
 
 /**
  * Literal operator: Between
