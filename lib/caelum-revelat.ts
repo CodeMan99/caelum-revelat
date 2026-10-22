@@ -40,7 +40,7 @@ export {
 	parse as E,
 } from "./binary-filter-expression.ts";
 
-export { bt, ct, eq, ew, gt, gte, in_, literal, lt, lte, parse as L, sw } from "./literal.ts";
+export { bt, ct, eq, ew, gt, gte, in_, literal, lt, lte, not_eq, not_in, parse as L, sw } from "./literal.ts";
 
 export { type FilterGroup, isFilterGroup, parse as G } from "./logical-group-expression.ts";
 
